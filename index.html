@@ -1,0 +1,309 @@
+[index.html.html](https://github.com/user-attachments/files/34224499/index.html.html)
+
+<style>
+*{box-sizing:border-box}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tb button{padding:6px 13px;border:0.5px solid var(--border-strong);border-radius:var(--radius);background:transparent;cursor:pointer;font-size:12px;color:var(--text-secondary)}
+.tb button.active{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent)}
+.mx{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px;margin-bottom:1rem}
+.mc{background:var(--surface-1);border-radius:var(--radius);padding:10px 14px}
+.mc .v{font-size:20px;font-weight:500;color:var(--text-primary);margin:2px 0}
+.mc .l{font-size:11px;color:var(--text-muted)}
+.mc .s{font-size:11px;margin-top:1px}
+.pill{display:inline-block;padding:2px 7px;border-radius:12px;font-size:11px;font-weight:500}
+.ok{background:var(--bg-success);color:var(--text-success)}
+.wn{background:var(--bg-warning);color:var(--text-warning)}
+.dn{background:var(--bg-danger);color:var(--text-danger)}
+.cr{background:#e34948;color:#fff}
+.na{background:var(--surface-1);color:var(--text-muted);border:0.5px solid var(--border)}
+.bl{background:#dbeafe;color:#1d4ed8}
+.rt{width:100%;border-collapse:collapse;font-size:12px}
+.rt th{text-align:left;padding:6px 8px;color:var(--text-muted);border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px}
+.rt td{padding:5px 8px;border-bottom:0.5px solid var(--border);color:var(--text-primary);vertical-align:middle}
+.rt tr:hover td{background:var(--surface-1)}
+.pane{display:none}.pane.active{display:block}
+.hito{display:flex;align-items:flex-start;gap:8px;font-size:12px;margin-bottom:7px}
+.ab{padding:10px 12px;border-left:3px solid;font-size:12px;color:var(--text-primary);margin-bottom:8px}
+.ab-d{background:var(--bg-danger);border-color:var(--border-danger)}
+.ab-w{background:var(--bg-warning);border-color:var(--border-warning)}
+.ab-s{background:var(--bg-success);border-color:var(--border-success)}
+.ab-b{background:#dbeafe;border-color:#93c5fd}
+.leg span{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text-muted);margin-right:12px}
+.note{font-size:11px;color:var(--text-muted);margin-top:4px}
+</style>
+
+<div style="padding:1rem 0 0.5rem">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1rem">
+  <div>
+    <div style="font-size:16px;font-weight:500;color:var(--text-primary)">Reporte de novedades PRYSE — 24 oct (vespertino) al 31 oct 2026 (matutino)</div>
+    <div style="font-size:12px;color:var(--text-muted)">271 registros (sin Supervisión Virtual) · FOLIOS 6163–6634 · 14 estados + MONITOREO + IMSS CENTRALES · 8 días · Promedio 99.6%</div>
+  </div>
+  <div class="tb">
+    <button class="active" onclick="sw('resumen',this)">Resumen</button>
+    <button onclick="sw('estatus',this)">Estatus por OOAD</button>
+    <button onclick="sw('novedades',this)">Novedades</button>
+    <button onclick="sw('errores',this)">Errores</button>
+    <button onclick="sw('regresion',this)">Regresión</button>
+  </div>
+</div>
+
+<div class="ab ab-b"><strong>Nota de alcance:</strong> igual que la semana pasada, este reporte excluye Supervisión Virtual (SV) — su avance se sigue por separado. Las cifras (271 registros) corresponden solo a REPORTE MATUTINO/VESPERTINO de los 14 estados, MONITOREO e IMSS CENTRALES.</div>
+
+<!-- RESUMEN -->
+<div id="pane-resumen" class="pane active">
+  <div class="mx">
+    <div class="mc"><div class="l">Total registros</div><div class="v">271</div><div class="s" style="color:var(--text-muted)">8 días</div></div>
+    <div class="mc"><div class="l">Válidos</div><div class="v">271</div><div class="s" style="color:var(--text-success)">sin estatus vacíos</div></div>
+    <div class="mc"><div class="l">Completo</div><div class="v" style="color:var(--text-success)">99.6%</div><div class="s" style="color:var(--text-success)">270 eventos</div></div>
+    <div class="mc"><div class="l">Fuera de tiempo / No reportado</div><div class="v" style="color:var(--text-success)">0.0%</div><div class="s" style="color:var(--text-success)">0 — sin casos explícitos</div></div>
+    <div class="mc"><div class="l">Reporte incompleto</div><div class="v" style="color:var(--text-warning)">0.4%</div><div class="s" style="color:var(--text-muted)">1 evento, MONITOREO (30-oct)</div></div>
+    <div class="mc"><div class="l">Folios duplicados/huecos</div><div class="v" style="color:var(--text-success)">0</div><div class="s" style="color:var(--text-success)">secuencia 6163–6634 limpia</div></div>
+    <div class="mc"><div class="l">Mejor día</div><div class="v" style="color:var(--text-success)">100.0%</div><div class="s" style="color:var(--text-muted)">7 de 8 días</div></div>
+    <div class="mc"><div class="l">Peor día</div><div class="v" style="color:var(--text-warning)">97.7%</div><div class="s" style="color:var(--text-muted)">30-oct (n=44, día de marchas IMSS)</div></div>
+  </div>
+
+  <div style="position:relative;width:100%;height:220px;margin-bottom:6px">
+    <canvas id="cMain" role="img" aria-label="Tasa de cumplimiento diaria PRYSE 24 al 31 de octubre 2026"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1.2rem">
+    <span><span style="display:inline-block;width:10px;height:3px;background:#2a78d6;border-radius:2px"></span>Cumplimiento %</span>
+    <span><span style="display:inline-block;width:10px;height:3px;background:#e34948;border-radius:2px"></span>Desviaciones</span>
+    <span><span style="display:inline-block;width:10px;height:2px;background:#eda100"></span>Reg. ŷ=100.19−0.14x</span>
+    <span><span style="display:inline-block;width:10px;height:2px;background:#888;border-top:1px dashed #888;height:0"></span>Meta 90%</span>
+  </div>
+
+  <div style="font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">Hitos del periodo</div>
+  <div class="hito"><span style="color:var(--text-success)">🏆</span><span><strong>Sin Aguascalientes en la lista de desviaciones por primera vez en 4 semanas:</strong> 99.6% de cumplimiento, cero fuera de tiempo y cero no reportado explícito — la mejor semana del periodo analizado hasta ahora.</span></div>
+  <div class="hito"><span style="color:var(--text-warning)">🔇</span><span><strong>Dos turnos "silenciosos" sin ningún registro:</strong> Chihuahua (vespertino 27-oct) y San Luis Potosí (vespertino 30-oct) no tienen fila alguna, a diferencia de los demás estados ese mismo turno — no cuentan como FUERA DE TIEMPO ni NO REPORTADO porque el renglón no existe.</span></div>
+  <div class="hito"><span style="color:var(--text-warning)">📢</span><span><strong>Jornada de marchas y manifestaciones del personal del IMSS, 30-oct:</strong> convocatoria, marcha, cierre de circulación (Coahuila) y manifestaciones registradas en Chihuahua, Durango, Baja California, San Luis Potosí e IMSS Centrales — coincide con el único día bajo (97.7%) y con el REPORTE INCOMPLETO de MONITOREO.</span></div>
+  <div class="hito"><span style="color:var(--text-danger)">⚠</span><span><strong>Dos casos graves en Jalisco el mismo día (26-oct):</strong> ingreso de paciente por violación e ingreso de paciente drogado — ambos reportados completos y a tiempo.</span></div>
+  <div class="hito"><span style="color:var(--text-danger)">💥</span><span><strong>Arribo de heridos por explosión de tanque de gas</strong> en Chihuahua (29-oct, 22:55).</span></div>
+  <div class="hito"><span style="color:var(--text-success)">🕐</span><span><strong>Segunda semana consecutiva sin inconsistencias de zona horaria:</strong> los 51 registros con esa justificación se clasificaron todos COMPLETO.</span></div>
+</div>
+
+<!-- ESTATUS POR OOAD -->
+<div id="pane-estatus" class="pane">
+  <div style="position:relative;width:100%;height:420px;margin-bottom:6px">
+    <canvas id="cOOAD" role="img" aria-label="Desempeño por OOAD semana 24 al 31 de octubre 2026, barras apiladas"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1rem">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2a78d6"></span>Completo</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#e34948"></span>Fuera de tiempo</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#7f1d1d"></span>No reportado / sin registro</span>
+  </div>
+
+  <div style="font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">Estatus detallado — todos los OOAD (24 al 31 de octubre). Resaltados los que presentan desviación.</div>
+  <table class="rt">
+    <thead><tr><th>OOAD / Estado</th><th>Coordinador</th><th>Mat/Ves</th><th>Cumplimiento</th><th>Fuera tiempo</th><th>No reportado</th><th>Hora prom.</th><th>Clasificación</th></tr></thead>
+    <tbody id="tbody-ooad"></tbody>
+  </table>
+  <div class="note">* CHIHUAHUA y SAN LUIS POTOSÍ: el "no reportado" de esta tabla corresponde a un turno sin ninguna fila (no existe folio ni estatus), no a un ESTATUS explícito.</div>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-success)">✅ FUERA DE TIEMPO / NO REPORTADO explícito — sin casos esta semana.</div>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">Turno sin ningún registro</div>
+  <table class="rt">
+    <thead><tr><th>OOAD</th><th>Coordinador</th><th>Turno faltante</th><th>Fecha</th></tr></thead>
+    <tbody>
+      <tr><td>CHIHUAHUA</td><td>Héctor Gabriel Bolly</td><td>Vespertino</td><td>27-oct</td></tr>
+      <tr><td>SAN LUIS POTOSÍ</td><td>Lucía Rapeta Quirino</td><td>Vespertino</td><td>30-oct (día de marchas IMSS)</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">MONITOREO — desviación de la semana</div>
+  <table class="rt">
+    <thead><tr><th>FOLIO</th><th>Monitorista</th><th>Fecha</th><th>Estatus</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>6606</td><td>Evelin García</td><td>30-oct</td><td><span class="pill wn">Incompleto</span></td><td>Sin observación; coincide con el día de marchas IMSS.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NOVEDADES ESPECIALES -->
+<div id="pane-novedades" class="pane">
+  <div class="mx">
+    <div class="mc"><div class="l">Marchas/manifestaciones IMSS</div><div class="v" style="color:var(--text-warning)">7</div><div class="s" style="color:var(--text-muted)">30-oct, varios estados</div></div>
+    <div class="mc"><div class="l">Códigos Plata</div><div class="v" style="color:var(--text-muted)">4</div><div class="s" style="color:var(--text-muted)">Baja California, Sinaloa</div></div>
+    <div class="mc"><div class="l">Casos graves (Jalisco)</div><div class="v" style="color:var(--text-danger)">2</div><div class="s" style="color:var(--text-muted)">violación y paciente drogado, mismo día</div></div>
+    <div class="mc"><div class="l">Explosión / heridos</div><div class="v" style="color:var(--text-danger)">1</div><div class="s" style="color:var(--text-muted)">tanque de gas, Chihuahua</div></div>
+    <div class="mc"><div class="l">Códigos Morado</div><div class="v" style="color:var(--text-warning)">2</div><div class="s" style="color:var(--text-muted)">Durango, Chihuahua</div></div>
+    <div class="mc"><div class="l">Extorsión</div><div class="v" style="color:var(--text-warning)">1</div><div class="s" style="color:var(--text-muted)">Jalisco, reporta números</div></div>
+  </div>
+
+  <table class="rt">
+    <thead><tr><th>FOLIO</th><th>OOAD</th><th>Incidencia</th><th>Fecha</th><th>Hora</th><th>Estatus</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td>6256</td><td>CHIHUAHUA</td><td>INGRESO DEL EJÉRCITO MEXICANO</td><td>25-oct</td><td>23:10</td><td><span class="pill ok">Completo</span></td><td>Presencia militar reportada en la unidad.</td></tr>
+      <tr><td>6290</td><td>JALISCO</td><td>INGRESO DE PACIENTE DROGADO</td><td>26-oct</td><td>12:30</td><td><span class="pill ok">Completo</span></td><td>⚠ Primero de dos casos graves el mismo día.</td></tr>
+      <tr><td>6297</td><td>JALISCO</td><td>INGRESO DE PACIENTE POR VIOLACIÓN</td><td>26-oct</td><td>14:19</td><td><span class="pill ok">Completo</span></td><td>⚠ Segundo caso grave de Jalisco el mismo día.</td></tr>
+      <tr><td>6318</td><td>CHIHUAHUA</td><td>CÓDIGO NARANJA</td><td>26-oct</td><td>19:55</td><td><span class="pill ok">Completo</span></td><td>Activación de protocolo interno.</td></tr>
+      <tr><td>6426</td><td>CHIHUAHUA</td><td>CÓDIGO MORADO</td><td>28-oct</td><td>17:09</td><td><span class="pill ok">Completo</span></td><td>Segundo "Código Morado" de la semana.</td></tr>
+      <tr><td>6488</td><td>DURANGO</td><td>RECETAS DE FARMACIA FALSAS</td><td>29-oct</td><td>13:02</td><td><span class="pill ok">Completo</span></td><td>Posible fraude detectado en farmacia de la unidad.</td></tr>
+      <tr><td>6525</td><td>JALISCO</td><td>REPORTA NÚMEROS DE EXTORSIÓN</td><td>29-oct</td><td>20:53</td><td><span class="pill ok">Completo</span></td><td>☎️ Continúa el foco de extorsión visto la semana pasada.</td></tr>
+      <tr><td>6529</td><td>CHIHUAHUA</td><td>ARRIBO DE HERIDOS POR TANQUE DE GAS</td><td>29-oct</td><td>22:55</td><td><span class="pill ok">Completo</span></td><td>💥 Explosión con heridos atendidos en la unidad.</td></tr>
+      <tr><td>6550</td><td>MONITOREO</td><td>CONVOCATORIA MARCHAS IMSS</td><td>30-oct</td><td>05:40</td><td><span class="pill ok">Completo</span></td><td>📢 Primer aviso del día de marchas.</td></tr>
+      <tr><td>6572</td><td>COAHUILA</td><td>CIERRE DE CIRCULACIÓN</td><td>30-oct</td><td>11:17</td><td><span class="pill ok">Completo</span></td><td>📢 Vial afectada por las marchas.</td></tr>
+      <tr><td>6575</td><td>BAJA CALIFORNIA</td><td>MARCHA IMSS</td><td>30-oct</td><td>12:03</td><td><span class="pill ok">Completo</span></td><td>📢 Marcha del personal del IMSS.</td></tr>
+      <tr><td>6583</td><td>CHIHUAHUA</td><td>MANIFESTACIÓN POR PERSONAL DEL IMSS</td><td>30-oct</td><td>16:19</td><td><span class="pill ok">Completo</span></td><td>📢 Mismo día de las marchas, otro estado.</td></tr>
+      <tr><td>6588</td><td>SAN LUIS POTOSÍ</td><td>REPORTE VESPERTINO DE MANIFESTACIONES</td><td>30-oct</td><td>18:00</td><td><span class="pill ok">Completo</span></td><td>📢 Reporte específico de manifestaciones, mismo día que su turno vespertino regular quedó sin registro.</td></tr>
+      <tr><td>6603</td><td>DURANGO</td><td>MANIFESTACIÓN POR PERSONAL DEL IMSS</td><td>30-oct</td><td>18:56</td><td><span class="pill ok">Completo</span></td><td>📢 Séptima mención del día de marchas.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ERRORES -->
+<div id="pane-errores" class="pane">
+  <table class="rt">
+    <thead><tr><th>FOLIO(s)</th><th>Tipo de error</th><th>Descripción</th><th>OOAD</th><th>Severidad</th></tr></thead>
+    <tbody>
+      <tr><td>— (sin folio)</td><td>Turno sin ningún registro (×2)</td><td>Chihuahua (vespertino 27-oct) y San Luis Potosí (vespertino 30-oct) no tienen fila alguna ese turno.</td><td>CHIHUAHUA, SAN LUIS POTOSÍ</td><td><span class="pill wn">Medio</span></td></tr>
+      <tr><td>6606</td><td>Reporte incompleto</td><td>MONITOREO, sin observación que explique el motivo; coincide con el día de marchas del personal del IMSS.</td><td>MONITOREO</td><td><span class="pill na">Bajo</span></td></tr>
+      <tr><td>6421</td><td>INCIDENCIA vacía</td><td>Registro de IMSS Centrales sin texto en el campo INCIDENCIA.</td><td>IMSS CENTRALES</td><td><span class="pill na">Bajo</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="ab ab-s" style="margin-top:1rem"><strong>La semana con menos errores desde que se excluye Supervisión Virtual del reporte:</strong> secuencia de folios limpia (6163–6634, sin duplicados ni huecos), cero ESTATUS explícitos de desviación salvo 1 reporte incompleto, y segunda semana seguida sin inconsistencias de zona horaria. Los únicos hallazgos son dos turnos silenciosos sin fila.</div>
+  <div class="ab ab-b"><strong>El turno faltante de San Luis Potosí coincide con el día de marchas del IMSS (30-oct)</strong> — vale la pena confirmar si fue por la actividad de ese día o un hecho independiente; el de Chihuahua (27-oct) no tiene un contexto evidente similar.</div>
+</div>
+
+<!-- REGRESIÓN -->
+<div id="pane-regresion" class="pane">
+  <div class="mx">
+    <div class="mc"><div class="l">β₁ cumplimiento</div><div class="v">−0.135</div><div class="s" style="color:var(--text-muted)">%/día (8 días)</div></div>
+    <div class="mc"><div class="l">β₀ cumplimiento</div><div class="v">100.19</div><div class="s" style="color:var(--text-muted)">% día inicial</div></div>
+    <div class="mc"><div class="l">R² cumplimiento</div><div class="v">0.170</div><div class="s" style="color:var(--text-muted)">correlación baja</div></div>
+    <div class="mc"><div class="l">p-valor cumpl.</div><div class="v">0.310</div><div class="s" style="color:var(--text-muted)">no significativo</div></div>
+    <div class="mc"><div class="l">Semana previa (17–24 oct)</div><div class="v">−0.310</div><div class="s" style="color:var(--text-muted)">%/día, p=0.325 (no sig.)</div></div>
+    <div class="mc"><div class="l">Histórico 119 días (global)</div><div class="v" style="color:var(--text-success)">+0.106</div><div class="s" style="color:var(--text-success)">%/día, p=0.000127</div></div>
+  </div>
+
+  <div style="position:relative;width:100%;height:230px;margin-bottom:6px">
+    <canvas id="cReg" role="img" aria-label="Dispersión y regresión lineal tasa de cumplimiento 24 al 31 de octubre 2026"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1rem">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2a78d6"></span>Observado %</span>
+    <span><span style="display:inline-block;width:12px;height:2px;background:#e34948"></span>Reg. ŷ=100.19−0.14x</span>
+    <span><span style="display:inline-block;width:12px;height:2px;background:#eda100"></span>Meta 90%</span>
+  </div>
+
+  <div class="ab ab-s"><strong>p = 0.310 — sin tendencia significativa, efecto techo casi perfecto:</strong> 7 de 8 días en 100% y un único día en 97.7% (30-oct, el día de las marchas del IMSS). La pendiente negativa no refleja deterioro sino un solo evento puntual coincidente con una jornada atípica de movilización del personal.</div>
+  <div class="ab ab-b"><strong>Sexta semana consecutiva por encima de 96%</strong> (99.4% → 99.3% → 96.7% → 98.8% → 99.6%), y la primera sin ningún estado en la lista de desviaciones por ESTATUS explícito (Aguascalientes, protagonista de las 3 semanas previas, no presenta problemas esta vez).</div>
+  <div class="ab ab-d"><strong>Lectura recomendada:</strong> confirmar con Aguascalientes si la mejora de esta semana es sostenible, y dar seguimiento a los dos turnos silenciosos (Chihuahua, San Luis Potosí) para distinguir si son fallas de captura puntuales o el inicio de un nuevo patrón, como ocurrió antes con otros estados.</div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function sw(name,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tb button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+const days=['24-oct','25-oct','26-oct','27-oct','28-oct','29-oct','30-oct','31-oct'];
+const tasa=[100.0,100.0,100.0,100.0,100.0,100.0,97.7,100.0];
+const devs=[0,0,0,0,0,0,1,0];
+const sl=-0.135,ic=100.189;
+const regL=days.map((_,i)=>+(ic+sl*i).toFixed(2));
+const meta=days.map(()=>90);
+
+new Chart(document.getElementById('cMain'),{
+  type:'line',
+  data:{
+    labels:days,
+    datasets:[
+      {label:'Cumplimiento %',data:tasa,borderColor:'#2a78d6',borderWidth:2,
+       pointBackgroundColor:tasa.map(v=>v>=90?'#22c55e':v>=80?'#2a78d6':v>=70?'#eda100':'#e34948'),
+       pointRadius:5,fill:false,tension:0.3,yAxisID:'y'},
+      {label:'Desviaciones',data:devs,borderColor:'#e34948',borderWidth:2,pointRadius:4,fill:false,tension:0.3,yAxisID:'y2'},
+      {label:'Regresión',data:regL,borderColor:'#eda100',borderWidth:1.5,borderDash:[4,3],pointRadius:0,fill:false,yAxisID:'y'},
+      {label:'Meta',data:meta,borderColor:'#888',borderWidth:1,borderDash:[2,4],pointRadius:0,fill:false,yAxisID:'y'}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      x:{ticks:{font:{size:11}},grid:{display:false}},
+      y:{min:90,max:105,ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'#e1e0d9'},title:{display:true,text:'Cumplimiento %',font:{size:10}}},
+      y2:{position:'right',min:0,max:3,ticks:{font:{size:10}},grid:{display:false},title:{display:true,text:'Desviaciones/día',font:{size:10}}}
+    }
+  }
+});
+
+const ooadData=[
+  {o:'AGUASCALIENTES',coord:'Ricardo Nandi',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:05'},
+  {o:'BAJA CALIFORNIA',coord:'Edgar Acosta Escárcega',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:15'},
+  {o:'BAJA CALIFORNIA SUR',coord:'Leoncio Coronado Galindo',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:06'},
+  {o:'COAHUILA',coord:'César Cedillo Pérez',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:13'},
+  {o:'DURANGO',coord:'Héctor Lujan Floriano',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:21'},
+  {o:'JALISCO',coord:'Mario Flores Aleissa',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:10'},
+  {o:'NAYARIT',coord:'Aarón Palma Román',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:22'},
+  {o:'NUEVO LEÓN',coord:'José A. Ramos Aguilar',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:42'},
+  {o:'SINALOA',coord:'Raúl Gallardo Velázquez',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:05'},
+  {o:'SONORA',coord:'Gustavo Rascon Evans',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:03'},
+  {o:'TAMAULIPAS',coord:'Ronald Hernández',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:27'},
+  {o:'ZACATECAS',coord:'Eduardo Ayala López',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:22'},
+  {o:'SAN LUIS POTOSÍ',coord:'Lucía Rapeta Quirino',t:13,c:13,ft:0,nr:1,tc:92.9,h:'12:00'},
+  {o:'CHIHUAHUA',coord:'Héctor Gabriel Bolly',t:13,c:13,ft:0,nr:1,tc:92.9,h:'12:47'},
+];
+const os=[...ooadData].sort((a,b)=>b.tc-a.tc);
+
+new Chart(document.getElementById('cOOAD'),{
+  type:'bar',
+  data:{
+    labels:os.map(o=>o.o),
+    datasets:[
+      {label:'Completo',data:os.map(o=>o.c),backgroundColor:'#2a78d6'},
+      {label:'Fuera tiempo',data:os.map(o=>o.ft),backgroundColor:'#e34948'},
+      {label:'No reportado',data:os.map(o=>o.nr),backgroundColor:'#7f1d1d'}
+    ]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index'}},
+    scales:{
+      x:{stacked:true,ticks:{font:{size:10}},grid:{color:'#e1e0d9'}},
+      y:{stacked:true,ticks:{font:{size:9}},grid:{display:false}}
+    }
+  }
+});
+
+new Chart(document.getElementById('cReg'),{
+  type:'scatter',
+  data:{
+    datasets:[
+      {label:'Observado',data:tasa.map((v,i)=>({x:i,y:v})),
+       backgroundColor:tasa.map(v=>v>=90?'#22c55e':v>=80?'rgba(42,120,214,0.8)':v>=70?'#eda100':'#e34948'),
+       pointRadius:7},
+      {label:'Regresión',data:regL.map((v,i)=>({x:i,y:v})),type:'line',borderColor:'#e34948',borderWidth:2,borderDash:[4,3],pointRadius:0,fill:false},
+      {label:'Meta',data:meta.map((v,i)=>({x:i,y:v})),type:'line',borderColor:'#eda100',borderWidth:1,borderDash:[2,4],pointRadius:0,fill:false}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${days[ctx.parsed.x]}: ${ctx.parsed.y.toFixed(1)}%`}}},
+    scales:{
+      x:{title:{display:true,text:'Día (0=24-oct, 7=31-oct)',font:{size:11}},min:-0.5,max:7.5,ticks:{font:{size:10}},grid:{color:'#e1e0d9'}},
+      y:{min:90,max:105,title:{display:true,text:'Tasa cumplimiento %',font:{size:11}},ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'#e1e0d9'}}
+    }
+  }
+});
+
+const tbody=document.getElementById('tbody-ooad');
+os.forEach(o=>{
+  let pill=o.tc>=90?'<span class="pill ok">Óptimo ✓</span>':o.tc>=75?'<span class="pill wn">Regular</span>':o.tc>=60?'<span class="pill dn">Crítico</span>':'<span class="pill cr">Colapso</span>';
+  const hasD=o.ft>0||o.nr>0;
+  tbody.innerHTML+=`<tr style="${hasD?'':'opacity:0.45'}">
+    <td style="font-weight:${hasD?500:400}">${o.o}</td>
+    <td style="font-size:11px;color:var(--text-secondary)">${o.coord}</td>
+    <td>${o.t}</td>
+    <td>${o.tc.toFixed(1)}%</td>
+    <td>${o.ft>0?'<span style="color:#e34948;font-weight:600">'+o.ft+'</span>':'—'}</td>
+    <td>${o.nr>0?'<span style="color:#7f1d1d;font-weight:600">'+o.nr+'</span>':'—'}</td>
+    <td style="font-size:11px">${o.h}</td>
+    <td>${pill}</td>
+  </tr>`;
+});
+</script>
