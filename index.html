@@ -1,0 +1,312 @@
+
+<style>
+*{box-sizing:border-box}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tb button{padding:6px 13px;border:0.5px solid var(--border-strong);border-radius:var(--radius);background:transparent;cursor:pointer;font-size:12px;color:var(--text-secondary)}
+.tb button.active{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent)}
+.mx{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px;margin-bottom:1rem}
+.mc{background:var(--surface-1);border-radius:var(--radius);padding:10px 14px}
+.mc .v{font-size:20px;font-weight:500;color:var(--text-primary);margin:2px 0}
+.mc .l{font-size:11px;color:var(--text-muted)}
+.mc .s{font-size:11px;margin-top:1px}
+.pill{display:inline-block;padding:2px 7px;border-radius:12px;font-size:11px;font-weight:500}
+.ok{background:var(--bg-success);color:var(--text-success)}
+.wn{background:var(--bg-warning);color:var(--text-warning)}
+.dn{background:var(--bg-danger);color:var(--text-danger)}
+.cr{background:#e34948;color:#fff}
+.na{background:var(--surface-1);color:var(--text-muted);border:0.5px solid var(--border)}
+.bl{background:#dbeafe;color:#1d4ed8}
+.rt{width:100%;border-collapse:collapse;font-size:12px}
+.rt th{text-align:left;padding:6px 8px;color:var(--text-muted);border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px}
+.rt td{padding:5px 8px;border-bottom:0.5px solid var(--border);color:var(--text-primary);vertical-align:middle}
+.rt tr:hover td{background:var(--surface-1)}
+.pane{display:none}.pane.active{display:block}
+.hito{display:flex;align-items:flex-start;gap:8px;font-size:12px;margin-bottom:7px}
+.ab{padding:10px 12px;border-left:3px solid;font-size:12px;color:var(--text-primary);margin-bottom:8px}
+.ab-d{background:var(--bg-danger);border-color:var(--border-danger)}
+.ab-w{background:var(--bg-warning);border-color:var(--border-warning)}
+.ab-s{background:var(--bg-success);border-color:var(--border-success)}
+.ab-b{background:#dbeafe;border-color:#93c5fd}
+.leg span{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text-muted);margin-right:12px}
+.note{font-size:11px;color:var(--text-muted);margin-top:4px}
+</style>
+
+<div style="padding:1rem 0 0.5rem">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1rem">
+  <div>
+    <div style="font-size:16px;font-weight:500;color:var(--text-primary)">Reporte de novedades PRYSE — 7 nov (vespertino) al 14 nov 2026 (matutino)</div>
+    <div style="font-size:12px;color:var(--text-muted)">237 registros (sin Supervisión Virtual) · FOLIOS 7053–7449 · 14 estados + MONITOREO + IMSS CENTRALES · 8 días · Promedio 98.7%</div>
+  </div>
+  <div class="tb">
+    <button class="active" onclick="sw('resumen',this)">Resumen</button>
+    <button onclick="sw('estatus',this)">Estatus por OOAD</button>
+    <button onclick="sw('novedades',this)">Novedades</button>
+    <button onclick="sw('errores',this)">Errores</button>
+    <button onclick="sw('regresion',this)">Regresión</button>
+  </div>
+</div>
+
+<div class="ab ab-b"><strong>Nota de alcance:</strong> igual que las dos semanas previas, este reporte excluye Supervisión Virtual (SV). Las cifras (237 registros) corresponden solo a REPORTE MATUTINO/VESPERTINO de los 14 estados, MONITOREO e IMSS CENTRALES.</div>
+
+<!-- RESUMEN -->
+<div id="pane-resumen" class="pane active">
+  <div class="mx">
+    <div class="mc"><div class="l">Total registros</div><div class="v">237</div><div class="s" style="color:var(--text-muted)">8 días</div></div>
+    <div class="mc"><div class="l">Válidos</div><div class="v">237</div><div class="s" style="color:var(--text-success)">sin estatus vacíos</div></div>
+    <div class="mc"><div class="l">Completo</div><div class="v" style="color:var(--text-success)">98.7%</div><div class="s" style="color:var(--text-success)">234 eventos</div></div>
+    <div class="mc"><div class="l">Fuera de tiempo</div><div class="v" style="color:var(--text-warning)">0.8%</div><div class="s" style="color:var(--text-muted)">2 eventos, mismo día (8-nov)</div></div>
+    <div class="mc"><div class="l">Reporte incompleto</div><div class="v" style="color:var(--text-warning)">0.4%</div><div class="s" style="color:var(--text-muted)">1 evento, MONITOREO</div></div>
+    <div class="mc"><div class="l">Folios duplicados/huecos</div><div class="v" style="color:var(--text-success)">0</div><div class="s" style="color:var(--text-success)">secuencia 7053–7449 limpia</div></div>
+    <div class="mc"><div class="l">Mejor día</div><div class="v" style="color:var(--text-success)">100.0%</div><div class="s" style="color:var(--text-muted)">6 de 8 días</div></div>
+    <div class="mc"><div class="l">Peor día</div><div class="v" style="color:var(--text-warning)">93.8%</div><div class="s" style="color:var(--text-muted)">8-nov (cambio de horario)</div></div>
+  </div>
+
+  <div style="position:relative;width:100%;height:220px;margin-bottom:6px">
+    <canvas id="cMain" role="img" aria-label="Tasa de cumplimiento diaria PRYSE 7 al 14 de noviembre 2026"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1.2rem">
+    <span><span style="display:inline-block;width:10px;height:3px;background:#2a78d6;border-radius:2px"></span>Cumplimiento %</span>
+    <span><span style="display:inline-block;width:10px;height:3px;background:#e34948;border-radius:2px"></span>Desviaciones</span>
+    <span><span style="display:inline-block;width:10px;height:2px;background:#eda100"></span>Reg. ŷ=98.16+0.20x</span>
+    <span><span style="display:inline-block;width:10px;height:2px;background:#888;border-top:1px dashed #888;height:0"></span>Meta 90%</span>
+  </div>
+
+  <div style="font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">Hitos del periodo</div>
+  <div class="hito"><span style="color:var(--text-warning)">🕐</span><span><strong>El fin del horario de verano (1-nov) explica casi todas las justificaciones de esta semana:</strong> Sonora (que no cambia de horario), Sinaloa, Baja California y Baja California Sur reportaron sistemáticamente "1 o 2 horas de diferencia por horario de zona" en 50 registros a lo largo de toda la semana — un patrón explicable por el calendario, no un error de captura.</span></div>
+  <div class="hito"><span style="color:var(--text-danger)">🔻</span><span><strong>Las 2 únicas desviaciones por FUERA DE TIEMPO caen el mismo día (8-nov), justo tras el cambio de horario:</strong> Jalisco y Baja California, ambas en el matutino — es el día más bajo de la semana (93.8%).</span></div>
+  <div class="hito"><span style="color:var(--text-warning)">🔇</span><span><strong>3 turnos sin ningún registro:</strong> Aguascalientes y Baja California comparten el mismo hueco (vespertino del 12-nov, ambos el mismo turno), y Chihuahua tiene uno independiente (matutino del 9-nov).</span></div>
+  <div class="hito"><span style="color:var(--text-danger)">🚨</span><span><strong>Suicidio frente a una unidad médica en Jalisco</strong> (7-nov, 22:31), reportado completo y a tiempo.</span></div>
+  <div class="hito"><span style="color:var(--text-danger)">🔫</span><span><strong>Ingreso por revisión relacionada con secuestro</strong> en Chihuahua (10-nov).</span></div>
+  <div class="hito"><span style="color:var(--text-warning)">📢</span><span><strong>IMSS Centrales reportó "atención ante posible marchas"</strong> (9-nov) — continúa el tema de movilizaciones de semanas previas, aunque sin el volumen de la semana del 30-oct.</span></div>
+</div>
+
+<!-- ESTATUS POR OOAD -->
+<div id="pane-estatus" class="pane">
+  <div style="position:relative;width:100%;height:420px;margin-bottom:6px">
+    <canvas id="cOOAD" role="img" aria-label="Desempeño por OOAD semana 7 al 14 de noviembre 2026, barras apiladas"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1rem">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2a78d6"></span>Completo</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#e34948"></span>Fuera de tiempo</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#7f1d1d"></span>No reportado / sin registro</span>
+  </div>
+
+  <div style="font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">Estatus detallado — todos los OOAD (7 al 14 de noviembre). Resaltados los que presentan desviación.</div>
+  <table class="rt">
+    <thead><tr><th>OOAD / Estado</th><th>Coordinador</th><th>Mat/Ves</th><th>Cumplimiento</th><th>Fuera tiempo</th><th>No reportado</th><th>Hora prom.</th><th>Clasificación</th></tr></thead>
+    <tbody id="tbody-ooad"></tbody>
+  </table>
+  <div class="note">* JALISCO: su vespertino del 7-nov existe (folio 7065) pero con la INCIDENCIA mal escrita "REPORTE VEPSERTINO" — se cuenta aquí como completo porque el reporte sí se hizo; ver pestaña Errores.</div>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">Fuera de tiempo</div>
+  <table class="rt">
+    <thead><tr><th>FOLIO</th><th>OOAD</th><th>Fecha</th><th>Turno</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>7104</td><td>JALISCO</td><td>8-nov</td><td>Matutino</td><td>Sin observación (coincide con el cambio de horario).</td></tr>
+      <tr><td>7105</td><td>BAJA CALIFORNIA</td><td>8-nov</td><td>Matutino</td><td>Cierre con 2 horas de diferencia por cambio de horario.</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">Turno sin ningún registro</div>
+  <table class="rt">
+    <thead><tr><th>OOAD</th><th>Coordinador</th><th>Turno faltante</th><th>Fecha</th></tr></thead>
+    <tbody>
+      <tr><td>AGUASCALIENTES</td><td>Ricardo Nandi</td><td>Vespertino</td><td>12-nov</td></tr>
+      <tr><td>BAJA CALIFORNIA</td><td>Edgar Acosta Escárcega</td><td>Vespertino</td><td>12-nov (mismo turno que Aguascalientes)</td></tr>
+      <tr><td>CHIHUAHUA</td><td>Héctor Gabriel Bolly</td><td>Matutino</td><td>9-nov</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:1.2rem;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px">MONITOREO — desviación de la semana</div>
+  <table class="rt">
+    <thead><tr><th>FOLIO</th><th>Monitorista</th><th>Fecha</th><th>Estatus</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>7392</td><td>Rocío Díaz Castro</td><td>13-nov</td><td><span class="pill wn">Incompleto</span></td><td>No reporta inicio de turno.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NOVEDADES ESPECIALES -->
+<div id="pane-novedades" class="pane">
+  <div class="mx">
+    <div class="mc"><div class="l">Justificaciones por cambio de horario</div><div class="v" style="color:var(--text-warning)">50</div><div class="s" style="color:var(--text-muted)">toda la semana, 4 estados</div></div>
+    <div class="mc"><div class="l">Códigos Plata</div><div class="v" style="color:var(--text-muted)">5</div><div class="s" style="color:var(--text-muted)">Jalisco, Sinaloa, Baja California, Chihuahua</div></div>
+    <div class="mc"><div class="l">Suicidio</div><div class="v" style="color:var(--text-danger)">1</div><div class="s" style="color:var(--text-muted)">Jalisco, frente a unidad médica</div></div>
+    <div class="mc"><div class="l">Secuestro</div><div class="v" style="color:var(--text-danger)">1</div><div class="s" style="color:var(--text-muted)">Chihuahua, ingreso por revisión</div></div>
+    <div class="mc"><div class="l">Código Escudo</div><div class="v" style="color:var(--text-warning)">3</div><div class="s" style="color:var(--text-muted)">Sinaloa, repetido en la semana</div></div>
+    <div class="mc"><div class="l">Alertas por posibles marchas</div><div class="v" style="color:var(--text-warning)">1</div><div class="s" style="color:var(--text-muted)">IMSS Centrales</div></div>
+  </div>
+
+  <table class="rt">
+    <thead><tr><th>FOLIO</th><th>OOAD</th><th>Incidencia</th><th>Fecha</th><th>Hora</th><th>Estatus</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td>7072</td><td>BAJA CALIFORNIA</td><td>PACIENTE CONTAMINADO</td><td>7-nov</td><td>18:10</td><td><span class="pill ok">Completo</span></td><td>Protocolo de bioseguridad activado.</td></tr>
+      <tr><td>7075</td><td>JALISCO</td><td>SUICIDIO FRENTE A UNIDAD MÉDICA</td><td>7-nov</td><td>22:31</td><td><span class="pill ok">Completo</span></td><td>🚨 Evento sensible, reportado completo y a tiempo.</td></tr>
+      <tr><td>7147</td><td>IMSS CENTRALES</td><td>ATENCIÓN ANTE POSIBLE MARCHAS</td><td>9-nov</td><td>08:45</td><td><span class="pill ok">Completo</span></td><td>📢 Continúa el tema de movilizaciones.</td></tr>
+      <tr><td>7170</td><td>SONORA</td><td>PERSONA VIOLENTA</td><td>9-nov</td><td>22:24</td><td><span class="pill ok">Completo</span></td><td>Incidente de seguridad interna.</td></tr>
+      <tr><td>7211</td><td>SINALOA</td><td>CÓDIGO ESCUDO</td><td>10-nov</td><td>14:41</td><td><span class="pill ok">Completo</span></td><td>Primera de tres activaciones en la semana.</td></tr>
+      <tr><td>7229</td><td>CHIHUAHUA</td><td>INGRESO PARA REVISIÓN POR SECUESTRO</td><td>10-nov</td><td>18:40</td><td><span class="pill ok">Completo</span></td><td>🔫 Caso sensible de seguridad.</td></tr>
+      <tr><td>7329, 7339</td><td>SINALOA</td><td>CÓDIGO ESCUDO</td><td>12-nov</td><td>09:10, 11:50</td><td><span class="pill ok">Completo</span></td><td>Dos activaciones el mismo día.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ERRORES -->
+<div id="pane-errores" class="pane">
+  <table class="rt">
+    <thead><tr><th>FOLIO(s)</th><th>Tipo de error</th><th>Descripción</th><th>OOAD</th><th>Severidad</th></tr></thead>
+    <tbody>
+      <tr><td>7065</td><td>Typo en INCIDENCIA</td><td>Registrado como "REPORTE VEPSERTINO" en vez de "REPORTE VESPERTINO" — el reporte sí se hizo a tiempo, solo está mal escrito el campo.</td><td>JALISCO</td><td><span class="pill na">Bajo</span></td></tr>
+      <tr><td>7229</td><td>Typo en INCIDENCIA</td><td>"INGRESO PARA REBICION POR SECUESTRO" — probable error de dedo ("revisión").</td><td>CHIHUAHUA</td><td><span class="pill na">Bajo</span></td></tr>
+      <tr><td>7089</td><td>INCIDENCIA poco clara</td><td>Registrado como "COLASH", sin equivalente reconocible entre las categorías habituales de MONITOREO.</td><td>MONITOREO</td><td><span class="pill na">Bajo</span></td></tr>
+      <tr><td>— (sin folio)</td><td>Turno sin ningún registro (×2, mismo turno)</td><td>Aguascalientes y Baja California no tienen fila del vespertino del 12-nov — igual que en semanas anteriores, dos estados comparten el mismo hueco.</td><td>AGUASCALIENTES, BAJA CALIFORNIA</td><td><span class="pill wn">Medio</span></td></tr>
+      <tr><td>— (sin folio)</td><td>Turno sin ningún registro</td><td>Chihuahua no tiene fila del matutino del 9-nov.</td><td>CHIHUAHUA</td><td><span class="pill wn">Medio</span></td></tr>
+      <tr><td>7104, 7105</td><td>Fuera de tiempo, mismo día</td><td>Jalisco y Baja California, ambos matutinos del 8-nov — primer día hábil tras el fin del horario de verano.</td><td>JALISCO, BAJA CALIFORNIA</td><td><span class="pill na">Bajo (explicable por calendario)</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="ab ab-s" style="margin-top:1rem"><strong>La mayoría de las "desviaciones" de esta semana tienen una causa de calendario, no de proceso:</strong> el fin del horario de verano el 1-nov explica las 50 justificaciones de zona horaria y probablemente los 2 fuera de tiempo del 8-nov. Descontando ese efecto, los únicos hallazgos operativos reales son los 3 turnos sin registro (Aguascalientes, Baja California, Chihuahua) y el reporte incompleto de MONITOREO.</div>
+  <div class="ab ab-b"><strong>Aguascalientes y Baja California vuelven a compartir el mismo hueco de turno</strong> (vespertino, 12-nov) — mismo patrón visto en semanas anteriores entre distintos pares de estados; sugiere revisar si hay una causa común en el sistema de captura para ese turno específico.</div>
+</div>
+
+<!-- REGRESIÓN -->
+<div id="pane-regresion" class="pane">
+  <div class="mx">
+    <div class="mc"><div class="l">β₁ cumplimiento</div><div class="v">+0.197</div><div class="s" style="color:var(--text-muted)">%/día (8 días)</div></div>
+    <div class="mc"><div class="l">β₀ cumplimiento</div><div class="v">98.16</div><div class="s" style="color:var(--text-muted)">% día inicial</div></div>
+    <div class="mc"><div class="l">R² cumplimiento</div><div class="v">0.044</div><div class="s" style="color:var(--text-muted)">correlación muy baja</div></div>
+    <div class="mc"><div class="l">p-valor cumpl.</div><div class="v">0.619</div><div class="s" style="color:var(--text-muted)">no significativo</div></div>
+    <div class="mc"><div class="l">Semana previa (24–31 oct)</div><div class="v">−0.135</div><div class="s" style="color:var(--text-muted)">%/día, p=0.310 (no sig.)</div></div>
+    <div class="mc"><div class="l">Histórico 119 días (global)</div><div class="v" style="color:var(--text-success)">+0.106</div><div class="s" style="color:var(--text-success)">%/día, p=0.000127</div></div>
+  </div>
+
+  <div style="position:relative;width:100%;height:230px;margin-bottom:6px">
+    <canvas id="cReg" role="img" aria-label="Dispersión y regresión lineal tasa de cumplimiento 7 al 14 de noviembre 2026"></canvas>
+  </div>
+  <div class="leg" style="margin-bottom:1rem">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2a78d6"></span>Observado %</span>
+    <span><span style="display:inline-block;width:12px;height:2px;background:#e34948"></span>Reg. ŷ=98.16+0.20x</span>
+    <span><span style="display:inline-block;width:12px;height:2px;background:#eda100"></span>Meta 90%</span>
+  </div>
+
+  <div class="ab ab-s"><strong>p = 0.619 — sin tendencia, un solo día explica casi toda la variación:</strong> 6 de 8 días en 100% y un mínimo de 93.8% el 8-nov, justo el primer día hábil tras el cambio de horario. Quitando ese día, la semana sería prácticamente perfecta.</div>
+  <div class="ab ab-b"><strong>Cumplimiento estable, séptima semana por encima de 93%</strong> en el histórico analizado, siempre muy por encima del promedio de 119 días (84.5%). El patrón de atención ya no es el nivel de cumplimiento general, sino hallazgos puntuales: turnos sin registro compartidos entre estados y justificaciones de calendario (zona horaria) que conviene distinguir de errores reales.</div>
+  <div class="ab ab-d"><strong>Lectura recomendada:</strong> confirmar si el hueco compartido de Aguascalientes/Baja California (vespertino 12-nov) tiene una causa técnica común, y dar seguimiento al nuevo monitorista de MONITOREO (Rocío Díaz Castro) para ver si su reporte incompleto del 13-nov es un hecho aislado.</div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function sw(name,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tb button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+const days=['7-nov','8-nov','9-nov','10-nov','11-nov','12-nov','13-nov','14-nov'];
+const tasa=[100.0,93.8,100.0,100.0,100.0,100.0,97.1,100.0];
+const devs=[0,2,0,0,0,0,1,0];
+const sl=0.197,ic=98.162;
+const regL=days.map((_,i)=>+(ic+sl*i).toFixed(2));
+const meta=days.map(()=>90);
+
+new Chart(document.getElementById('cMain'),{
+  type:'line',
+  data:{
+    labels:days,
+    datasets:[
+      {label:'Cumplimiento %',data:tasa,borderColor:'#2a78d6',borderWidth:2,
+       pointBackgroundColor:tasa.map(v=>v>=90?'#22c55e':v>=80?'#2a78d6':v>=70?'#eda100':'#e34948'),
+       pointRadius:5,fill:false,tension:0.3,yAxisID:'y'},
+      {label:'Desviaciones',data:devs,borderColor:'#e34948',borderWidth:2,pointRadius:4,fill:false,tension:0.3,yAxisID:'y2'},
+      {label:'Regresión',data:regL,borderColor:'#eda100',borderWidth:1.5,borderDash:[4,3],pointRadius:0,fill:false,yAxisID:'y'},
+      {label:'Meta',data:meta,borderColor:'#888',borderWidth:1,borderDash:[2,4],pointRadius:0,fill:false,yAxisID:'y'}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      x:{ticks:{font:{size:11}},grid:{display:false}},
+      y:{min:85,max:105,ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'#e1e0d9'},title:{display:true,text:'Cumplimiento %',font:{size:10}}},
+      y2:{position:'right',min:0,max:3,ticks:{font:{size:10}},grid:{display:false},title:{display:true,text:'Desviaciones/día',font:{size:10}}}
+    }
+  }
+});
+
+const ooadData=[
+  {o:'AGUASCALIENTES',coord:'Ricardo Nandi',t:14,c:13,ft:0,nr:1,tc:92.9,h:'11:41'},
+  {o:'BAJA CALIFORNIA',coord:'Edgar Acosta Escárcega',t:14,c:12,ft:1,nr:1,tc:85.7,h:'10:46'},
+  {o:'BAJA CALIFORNIA SUR',coord:'Leoncio Coronado Galindo',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:04'},
+  {o:'COAHUILA',coord:'César Cedillo Pérez',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:23'},
+  {o:'DURANGO',coord:'Héctor Lujan Floriano',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:36'},
+  {o:'JALISCO',coord:'Mario Flores Aleissa',t:14,c:13,ft:1,nr:0,tc:92.9,h:'12:11'},
+  {o:'NAYARIT',coord:'Aarón Palma Román',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:13'},
+  {o:'NUEVO LEÓN',coord:'José A. Ramos Aguilar',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:27'},
+  {o:'SAN LUIS POTOSÍ',coord:'Lucía Rapeta Quirino',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:28'},
+  {o:'SINALOA',coord:'Raúl Gallardo Velázquez',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:02'},
+  {o:'SONORA',coord:'Gustavo Rascon Evans',t:14,c:14,ft:0,nr:0,tc:100.0,h:'11:02'},
+  {o:'TAMAULIPAS',coord:'Ronald Hernández',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:36'},
+  {o:'ZACATECAS',coord:'Eduardo Ayala López',t:14,c:14,ft:0,nr:0,tc:100.0,h:'12:14'},
+  {o:'CHIHUAHUA',coord:'Héctor Gabriel Bolly',t:14,c:13,ft:0,nr:1,tc:92.9,h:'12:59'},
+];
+const os=[...ooadData].sort((a,b)=>b.tc-a.tc);
+
+new Chart(document.getElementById('cOOAD'),{
+  type:'bar',
+  data:{
+    labels:os.map(o=>o.o),
+    datasets:[
+      {label:'Completo',data:os.map(o=>o.c),backgroundColor:'#2a78d6'},
+      {label:'Fuera tiempo',data:os.map(o=>o.ft),backgroundColor:'#e34948'},
+      {label:'No reportado',data:os.map(o=>o.nr),backgroundColor:'#7f1d1d'}
+    ]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index'}},
+    scales:{
+      x:{stacked:true,ticks:{font:{size:10}},grid:{color:'#e1e0d9'}},
+      y:{stacked:true,ticks:{font:{size:9}},grid:{display:false}}
+    }
+  }
+});
+
+new Chart(document.getElementById('cReg'),{
+  type:'scatter',
+  data:{
+    datasets:[
+      {label:'Observado',data:tasa.map((v,i)=>({x:i,y:v})),
+       backgroundColor:tasa.map(v=>v>=90?'#22c55e':v>=80?'rgba(42,120,214,0.8)':v>=70?'#eda100':'#e34948'),
+       pointRadius:7},
+      {label:'Regresión',data:regL.map((v,i)=>({x:i,y:v})),type:'line',borderColor:'#e34948',borderWidth:2,borderDash:[4,3],pointRadius:0,fill:false},
+      {label:'Meta',data:meta.map((v,i)=>({x:i,y:v})),type:'line',borderColor:'#eda100',borderWidth:1,borderDash:[2,4],pointRadius:0,fill:false}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${days[ctx.parsed.x]}: ${ctx.parsed.y.toFixed(1)}%`}}},
+    scales:{
+      x:{title:{display:true,text:'Día (0=7-nov, 7=14-nov)',font:{size:11}},min:-0.5,max:7.5,ticks:{font:{size:10}},grid:{color:'#e1e0d9'}},
+      y:{min:85,max:105,title:{display:true,text:'Tasa cumplimiento %',font:{size:11}},ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'#e1e0d9'}}
+    }
+  }
+});
+
+const tbody=document.getElementById('tbody-ooad');
+os.forEach(o=>{
+  let pill=o.tc>=90?'<span class="pill ok">Óptimo ✓</span>':o.tc>=75?'<span class="pill wn">Regular</span>':o.tc>=60?'<span class="pill dn">Crítico</span>':'<span class="pill cr">Colapso</span>';
+  const hasD=o.ft>0||o.nr>0;
+  tbody.innerHTML+=`<tr style="${hasD?'':'opacity:0.45'}">
+    <td style="font-weight:${hasD?500:400}">${o.o}</td>
+    <td style="font-size:11px;color:var(--text-secondary)">${o.coord}</td>
+    <td>${o.t}</td>
+    <td>${o.tc.toFixed(1)}%</td>
+    <td>${o.ft>0?'<span style="color:#e34948;font-weight:600">'+o.ft+'</span>':'—'}</td>
+    <td>${o.nr>0?'<span style="color:#7f1d1d;font-weight:600">'+o.nr+'</span>':'—'}</td>
+    <td style="font-size:11px">${o.h}</td>
+    <td>${pill}</td>
+  </tr>`;
+});
+</script>
